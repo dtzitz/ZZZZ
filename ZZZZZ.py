@@ -5,6 +5,7 @@ import re
 LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 ALPHABET = [0,26,52,78]
 #tool only works for lettered editions
+# lol @ paris accord, polluting global like it's my job - REFACTOR PLS
 EDITION_REG = re.compile('[a-zA-Z]')
 DATE_REG = re.compile('[0-9]{8}')
 known_edition = 'BC'
