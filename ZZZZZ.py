@@ -35,8 +35,9 @@ def user_input():
         print('you goofed up the date')
         user_input()
 
-    #todo: get supersession rate
-    super_rate = input('Please type in the supersession rate using num time (1 day, 1 week, 1 month, 6 months, 1 year')
+    super_rate = input('Please type in the supersession rate using num time (1 day, 1 week, 1 month, 6 months, 1 year :')
+    rate_unit = super_rate[0]
+    duration_string = super_rate[2:]
 
     unknown_edition = input("Please type the edition with the UNKNOWN EFFECTIVE DATE: ")
     if EDITION_REG.match(unknown_edition) != None:
@@ -47,7 +48,7 @@ def user_input():
 
     edition_delta = known_edition_point - unknown_edition_point
 
-
+    find_date(rate_unit,duration_string,edition_delta)
 
 def count_letters(edition):
     print(edition)
@@ -62,6 +63,9 @@ def count_letters(edition):
         #todo 3 letters?
             
     return edition_point
+    
+def find_date(rate_unit,duration_string,edition_delta):
+    year = timedelta(days=365)
     
 
 
