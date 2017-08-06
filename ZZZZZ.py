@@ -2,14 +2,12 @@
 import datetime
 from datetime import timedelta
 import re
+from dateutil.relativedelta import relativedelta
 
 LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 #tool only works for lettered editions
-# lol @ paris accord, polluting global like it's my job - REFACTOR PLS
 EDITION_REG = re.compile('[a-zA-Z]')
 DATE_REG = re.compile('[0-9]{8}')
-# known_edition_value = []
-# super_rate = '1 year'
 
 
 def user_input():
@@ -28,15 +26,12 @@ def user_input():
         day = int(known_date[6:])
         known_date = datetime.date(year, month, day)
         print('The known date is {0} '.format(known_date))
-        year = timedelta(days=365)
-        s = known_date - year
-        print('some other date is {0} '.format(s))
     else:
         print('you goofed up the date')
         user_input()
 
-    super_rate = input('Please type in the supersession rate using num time (1 day, 1 week, 1 month, 6 months, 1 year :')
-    rate_unit = super_rate[0]
+    super_rate = input('Please type in the supersession rate using num time (1 days, 1 weeks, 1 months, 6 months, 1 years :')
+    rate_unit = int(super_rate[0])
     duration_string = super_rate[2:]
 
     unknown_edition = input("Please type the edition with the UNKNOWN EFFECTIVE DATE: ")
@@ -48,7 +43,7 @@ def user_input():
 
     edition_delta = known_edition_point - unknown_edition_point
 
-    find_date(rate_unit,duration_string,edition_delta)
+    find_date(rate_unit,duration_string,edition_delta,known_date)
 
 def count_letters(edition):
     print(edition)
@@ -64,15 +59,31 @@ def count_letters(edition):
             
     return edition_point
     
-def find_date(rate_unit,duration_string,edition_delta):
-    year = timedelta(days=365)
+def find_date(rate_unit,duration_string,edition_delta,known_date):
+    # six_months = date.today() + relativedelta(months=+6)
+    
+    rate_unit = rate_unit*edition_delta
+
+    if duration_string == 'months':
+        effective_date = known_date - relativedelta(months=+rate_unit)
+
+    if duration_string == 'days':
+        effective_date = known_date - relativedelta(days=+rate_unit)
+
+    if duration_string == 'weeks':
+        effective_date = known_date - relativedelta(weeks=+rate_unit)
+
+    if duration_string == 'years':
+        effective_date = known_date - relativedelta(years=+rate_unit)
+
+    print('The effective date of the unknown edition is {0} '.format(effective_date))
     
 
 
 
 def main():
     user_input()
-    # count_letters()
+    
     
 
 if __name__ == '__main__':
