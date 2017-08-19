@@ -46,7 +46,6 @@ def user_input():
     find_date(rate_unit,duration_string,edition_delta,known_date)
 
 def count_letters(edition):
-    print(edition)
     edition_reverse = edition[::-1]
     edition_point = 0
     for i in range(len(edition_reverse)):
@@ -60,7 +59,6 @@ def count_letters(edition):
     return edition_point
     
 def find_date(rate_unit,duration_string,edition_delta,known_date):
-    # six_months = date.today() + relativedelta(months=+6)
     
     rate_unit = rate_unit*edition_delta
 
@@ -83,8 +81,6 @@ def find_date(rate_unit,duration_string,edition_delta,known_date):
 
 def main():
     user_input()
-    
-    
 
 if __name__ == '__main__':
     main()
